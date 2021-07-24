@@ -28,6 +28,8 @@ public class SimpleArticleService implements ArticleService {
                 .peek(i -> LOGGER.info("Сгенерирована статья № {}", i))
                 .mapToObj((x) -> articleGenerator.generate(words))
                 .collect(Collectors.toList());
-        articles.forEach(articleStore::save);
+        for (var i : articles) {
+            articleStore.save((Article) i.get());
+        }
     }
 }
